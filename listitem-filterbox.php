@@ -12,7 +12,20 @@
 // If this file is called directly, abort.
 defined( 'ABSPATH' ) or die( 'access denied' );
 
+function listitem_filterbox_addscript(){
+
+  wp_register_script( 'listitem_filterbox',
+    plugin_dir_url( __FILE__ ) . 'js/main.js',
+    false,
+    true
+  );
+
+}
+
+add_action( 'wp_enqueue_scripts', 'listitem_filterbox_addscript' );
+
 function listitem_filterbox_shortcode( $atts ){
+
   global $wp;
 
   $defaults = array(
@@ -29,15 +42,17 @@ function listitem_filterbox_shortcode( $atts ){
 
   // Overwrite defaults with user-defined attributes
   $atts = array_merge($defaults, $atts);
+  
+  wp_enqueue_script( 'listitem_filterbox' );
 
-  return sprintf( '<form class="%s listitem-filterbox" action="%s" method="GET" data-lifb-use-titles="%s"><input class="%s" placeholder="%s" autocomplete="off" name="filter" type="search" /><script type="text/javascript" src="%sjs/main.js"></script></form>',
+  return sprintf( '<form class="%s listitem-filterbox" action="%s" method="GET" data-lifb-use-titles="%s"><input class="%s" placeholder="%s" autocomplete="off" name="filter" type="search" /></form>',
     $atts['formclass'],
     home_url(add_query_arg(array(),$wp->request)),
     $atts['usetitles'],
     $atts['inputclass'],
-    $atts['placeholder'],
-    plugin_dir_url( __FILE__ )
+    $atts['placeholder']
   );
+
 }
 
 add_shortcode( 'listitem_filterbox', 'listitem_filterbox_shortcode' );
