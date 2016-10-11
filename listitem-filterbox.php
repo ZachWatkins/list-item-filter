@@ -14,7 +14,30 @@ defined( 'ABSPATH' ) or die( 'access denied' );
 
 function listitem_filterbox_shortcode( $atts ){
   global $wp;
-  return sprintf( '<form class="search-form listitem-filterbox" action="%s" method="GET"><input placeholder="%s" autocomplete="off" name="filter" type="search" /><script type="text/javascript" src="%sjs/main.js"></script></form>', home_url(add_query_arg(array(),$wp->request)), $atts['placeholder'], plugin_dir_url( __FILE__ ) );
+
+  $defaults = array(
+    'formclass' => 'search-form',
+    'inputclass' => 'search-field',
+    'placeholder' => 'Search',
+    'usetitles' => 'true'
+  );
+
+  // Ensure attributes are not misused
+  foreach($atts as $key=>$value){
+    $atts[$key] = str_replace('"', '', $value);
+  }
+
+  // Overwrite defaults with user-defined attributes
+  $atts = array_merge($defaults, $atts);
+
+  return sprintf( '<form class="%s listitem-filterbox" action="%s" method="GET" data-lifb-use-titles="%s"><input class="%s" placeholder="%s" autocomplete="off" name="filter" type="search" /><script type="text/javascript" src="%sjs/main.js"></script></form>',
+    $atts['formclass'],
+    home_url(add_query_arg(array(),$wp->request)),
+    $atts['usetitles'],
+    $atts['inputclass'],
+    $atts['placeholder'],
+    plugin_dir_url( __FILE__ )
+  );
 }
 
 add_shortcode( 'listitem_filterbox', 'listitem_filterbox_shortcode' );
