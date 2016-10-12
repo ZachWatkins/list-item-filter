@@ -1,7 +1,7 @@
-function Listfilter(form){
+function Listitemfilter(form){
   this.form = form;
   this.ele = this.form.querySelector('input');
-  this.usetitles = (this.form.dataset.lifbUseTitles === 'true');
+  this.usetitles = (this.form.dataset.lifUseTitles === 'true');
 
   var items = {
     eles: form.parentNode.getElementsByTagName('li'),
@@ -119,12 +119,12 @@ function Listfilter(form){
 }
 
 // For each instance of shortcode, create new list filter object
-window.addEventListener('load', function(){
+(function(){
 
-  var forms = document.querySelectorAll('form.listitem-filterbox');
+  var forms = document.querySelectorAll('form.list-item-filter');
 
   for(var i = 0; i < forms.length; i++){
-    new Listfilter(forms[i]);
+    new Listitemfilter(forms[i]);
   }
 
-});
+})();
