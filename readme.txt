@@ -1,5 +1,5 @@
 === List Item Filter ===
-Contributors: Zach Watkins
+Contributors: zachwtx
 Tags: list, filter, search
 Requires at least: 2.5
 Tested up to: 4.6
