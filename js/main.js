@@ -57,7 +57,8 @@ function Listitemfilter(form){
   this.handler = function(e){
 
     var value = e.target.value,
-        indexes = [],
+        toShow = [],
+        toHide = [],
         valuesToCheck = [];
 
     // Remove the commas and spaces at the ends of the search string
@@ -65,6 +66,7 @@ function Listitemfilter(form){
 
     if(value != ''){
 
+      // Show only some items
       // If the search box has multiple words, search for them individually in addition to the whole value
       if(value.indexOf(' ') > 0){
         valuesToCheck = value.split(' ');
@@ -79,12 +81,13 @@ function Listitemfilter(form){
         var itemtext = items.text[i].toLowerCase(),
             found = false;
 
-        // Loop through each word in the search string
+        // Compare each word in the search string to the item's searchable text
         for(var j = 0; j < valuesToCheck.length; j++){
 
-          if(itemtext.indexOf(valuesToCheck[j]) >= 0){
+          if(itemtext.indexOf(valuesToCheck[j]) > -1){
 
-            indexes.push(i);
+            // Show item
+            toShow.push(items.eles[i]);
             found = true;
             break;
 
@@ -94,16 +97,25 @@ function Listitemfilter(form){
 
         // Hide unmatched stored items
         if(!found) {
-          items.eles[i].style.display = 'none';
+          toHide.push(items.eles[i]);
         }
 
       }
 
-      // Reset stored items matched with search string
-      for(var i = 0; i < indexes.length; i++){
-        items.eles[indexes[i]].style.display = '';
-      }
+    } else {
 
+      // Show all items
+      toShow = items.eles;
+
+    }
+    
+    // Show and hide elements
+    for(var i = 0; i < toShow.length; i++){
+      toShow[i].style.display = '';
+    }
+    
+    for(var i = 0; i < toHide.length; i++){
+      toHide[i].style.display = 'none';
     }
 
   };
