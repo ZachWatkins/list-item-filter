@@ -55,7 +55,7 @@ function Listitemfilter(form){
   };
 
   this.handler = function(e){
-
+    
     var value = e.target.value,
         toShow = [],
         toHide = [],
@@ -113,7 +113,7 @@ function Listitemfilter(form){
     for(var i = 0; i < toShow.length; i++){
       toShow[i].style.display = '';
     }
-    
+
     for(var i = 0; i < toHide.length; i++){
       toHide[i].style.display = 'none';
     }
