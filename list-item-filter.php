@@ -32,7 +32,7 @@ function list_item_filter_shortcode( $atts ){
     'formclass' => 'search-form',
     'inputclass' => 'search-field',
     'placeholder' => 'Search',
-    'searchtitles' => 'true'
+    'searchtitles' => 'false'
   );
 
   // Ensure attributes are not misused

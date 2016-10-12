@@ -5,11 +5,22 @@ Requires at least: 2.5
 Tested up to: 4.6
 Stable tag: 1.0
 
-Provides a shortcode [list_item_filter] that generates a text input field, which filters out list items that do not contain that input field's text.
+Provides a shortcode that generates a text input field, which filters out list items that do not contain that input field's text.
 
 == Description ==
 
-This plugin provides a shortcode [list_item_filter] that generates a text input field, which filters out list items that do not contain that input field's text. Each word in the input field is matched against the readable text of the list items, and list items which don't match are hidden. The "searchtitles" parameter expands text matching to include the first title attribute of the list item's HTML. The "placeholder" parameter allows you to set the input field's default text. The "formclass" and "inputclass" parameters allow you to add your own class names to these elements, which helps integrate the feature with your existing styles.
+This plugin provides a shortcode that generates a text input field, which filters out list items that do not contain that input field's text. Each word in the input field is matched against the readable text of the list items, and list items which don't match are hidden.
+
+Example usage: [list_item_filter placeholder="Filter this list by terms" searchtitles="true"]
+
+Shortcode parameters:
+
+* searchtitles (bool): Expand text matching to include the first title attribute of the list item's HTML. Default value: false
+* placeholder (string): Define the input field's default text. Default value: Search
+* formclass (string): Define one or more class names for the form. Default value: search-form
+* inputclass (string): Define one or more class names for the input field. Default value: search-field
+
+If you like this plugin or have a request, let me know!
 
 == Installation ==
 
@@ -27,7 +38,4 @@ You can use the Issues section of the Github repository: https://github.com/Zach
 
 * Provide shortcode parameters for class names, placeholder text, and searching title attributes
 * Refactor Javascript to allow multiple instances per page
-
-Example usage: [list_item_filter placeholder="Filter this list by terms" searchtitles="true"]
-
-If you like this plugin or have a request, let me know!
+* Ensure Javascript is only added to page when shortcode is in use
