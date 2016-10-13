@@ -1,7 +1,8 @@
 function Listitemfilter(form){
   this.form = form;
   this.ele = this.form.querySelector('input');
-  this.usetitles = (this.form.dataset.lifUseTitles === 'true');
+  this.usetitles = (this.form.getAttribute('data-lif-use-titles') === 'true');
+  this.needsPolyfillPlaceholder = (typeof this.ele.placeholder == 'undefined');
 
   var items = {
     eles: form.parentNode.getElementsByTagName('li'),
@@ -50,6 +51,11 @@ function Listitemfilter(form){
 
       // Prevent the form from being submitted
       this.form.addEventListener('submit', this.preventSubmit);
+
+      // Polyfill for IE9, input's placeholder attribute
+      if(this.needsPolyfillPlaceholder){
+        this.polyfillPlaceholder();
+      }
 
     }
   };
@@ -124,6 +130,32 @@ function Listitemfilter(form){
 
     e.preventDefault();
     return false;
+
+  };
+
+  this.polyfillPlaceholder = function(){
+
+    this.ele.value = this.ele.getAttribute('placeholder');
+    this.ele.addEventListener('focus', this.polyfillPHFocus);
+    this.ele.addEventListener('blur', this.polyfillPHBlur);
+
+  };
+
+  this.polyfillPHFocus = function(e){
+
+    var placeholder = e.target.getAttribute('placeholder');
+    if(e.target.value == placeholder){
+      e.target.value = '';
+    }
+
+  };
+
+  this.polyfillPHBlur = function(e){
+
+    var placeholder = e.target.getAttribute('placeholder');
+    if(e.target.value == ''){
+      e.target.value = placeholder;
+    }
 
   };
 
