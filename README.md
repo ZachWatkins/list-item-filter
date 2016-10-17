@@ -1,9 +1,6 @@
 # List Item Filter
-Contributors: zachwtx
-Tags: list, filter, search, shortcode, javascript
-Requires at least: 2.5
-Tested up to: 4.6
-Stable tag: 1.2
+
+[WordPress plugin page](https://wordpress.org/plugins/list-item-filter/)
 
 Filter out list items with a shortcode-generated search field.
 
@@ -26,27 +23,3 @@ If you like this plugin or have a request, let me know!
 ## Installation
 
 Upload the plugin to your blog, activate it, then use the shortcode in a page or post!
-
-## Changelog
-
-### Version 1.2
-
-* Add label to search field to improve accessibility
-* Add notes to Javascript
-* Improve readability of documentation
-* Add tags
-
-### Version 1.1
-
-* Add message informing users that no items were found that matched their text
-* Add noresultsmsg parameter so users can customize the text displayed when no matching items are found
-* Rename data attribute for searchtitles parameter
-* Add class names to items for show and hide states
-* Change visibility manipulation to remove inline styling in favor of a stylesheet
-
-### Version 1.0
-
-* Provide shortcode parameters for class names, placeholder text, and searching title attributes
-* Refactor Javascript to allow multiple instances per page
-* Ensure Javascript file is only added to page when shortcode is in use
-* Add support for IE9 placeholder attribute
