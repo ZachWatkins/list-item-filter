@@ -1,13 +1,23 @@
+/*
+ * List Item Filter WordPress Plugin, v1.2
+ * By Zach Watkins, http://zachwatkins.info, watkinza@gmail.com
+ * License: GPL2+
+*/
+
 function Listitemfilter(form){
+
   this.form = form;
   this.ele = this.form.querySelector('input');
-  this.usetitles = (this.form.getAttribute('data-lif-use-titles') === 'true');
+  this.usetitles = (this.form.getAttribute('data-lifp-search-titles') === 'true');
   this.needsPolyfillPlaceholder = (typeof this.ele.placeholder == 'undefined');
 
   var items = {
     eles: form.parentNode.getElementsByTagName('li'),
     text: []
   };
+
+  var resultsmsg = this.form.getAttribute('data-lifp-no-results-msg'),
+      noresults = resultsmsg != '' ? document.createElement('div') : false;
 
   this.init = function(){
 
@@ -46,7 +56,14 @@ function Listitemfilter(form){
 
       }
 
-      // Initialize the search box
+      // Add no results message
+      if(noresults){
+        noresults.className = 'lifp-result-notice lifp-hide';
+        noresults.innerHTML = resultsmsg;
+        items.eles[0].parentNode.insertBefore(noresults, items.eles[0]);
+      }
+
+      // Add search field functionality
       this.ele.addEventListener('keyup', this.handler);
 
       // Prevent the form from being submitted
@@ -65,7 +82,9 @@ function Listitemfilter(form){
     var value = e.target.value,
         toShow = [],
         toHide = [],
-        valuesToCheck = [];
+        valuesToCheck = [],
+        shownclass = 'lifp-show',
+        hiddenclass = 'lifp-hide';
 
     // Remove the commas and spaces at the ends of the search string
     value = value.replace(/^\s+/, '').replace(/\s+$/, '').replace(/,/g, '');
@@ -117,11 +136,48 @@ function Listitemfilter(form){
     
     // Show and hide elements
     for(var i = 0; i < toShow.length; i++){
-      toShow[i].style.display = '';
+
+      // Remove hiddenclass and add shownclass
+      var className = toShow[i].className;
+
+      if(className.indexOf(shownclass) < 0){
+        className = className.replace(hiddenclass,'').replace('  ',' ');
+        if(className != ''){
+          toShow[i].className = className + ' ' + shownclass;
+        } else {
+          toShow[i].className = shownclass;
+        }
+      }
+
     }
 
     for(var i = 0; i < toHide.length; i++){
-      toHide[i].style.display = 'none';
+
+      // Remove shownclass and add hiddenclass
+      var className = toHide[i].className;
+
+      if(className.indexOf(hiddenclass) < 0){
+        className = className.replace(shownclass,'').replace('  ',' ');
+        if(className != ''){
+          toHide[i].className = className + ' ' + hiddenclass;
+        } else {
+          toHide[i].className = hiddenclass;
+        }
+      }
+
+    }
+
+    // Handle results message
+    if(noresults){
+      if(toShow.length == 0){
+        // Add shownclass
+        if(noresults.className.indexOf(shownclass) < 0)
+          noresults.className = 'lifp-result-notice ' + shownclass;
+      } else {
+        // Add hiddenclass
+        if(noresults.className.indexOf(hiddenclass) < 0)
+          noresults.className = 'lifp-result-notice ' + hiddenclass;
+      }
     }
 
   };
@@ -165,7 +221,7 @@ function Listitemfilter(form){
 // For each instance of shortcode, create new list filter object
 (function(){
 
-  var forms = document.querySelectorAll('form.list-item-filter');
+  var forms = document.querySelectorAll('form.list-item-filter-plugin');
 
   for(var i = 0; i < forms.length; i++){
     new Listitemfilter(forms[i]);
