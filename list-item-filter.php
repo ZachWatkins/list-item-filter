@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: List Item Filter
- * Description: Provides a shortcode that generates a text input field, which filters out list items that do not contain that input field's text.
- * Version: 1.0
+ * Description: Filter out list items with a shortcode-generated search field.
+ * Version: 1.2
  * Author: Zach Watkins
- * Author URI: https://github.com/ZachWatkins
+ * Author URI: http://zachwatkins.info
  * Author Email: watkinza@gmail.com
  * License: GPL2+
 **/
@@ -32,7 +32,8 @@ function list_item_filter_shortcode( $atts ){
     'formclass' => 'search-form',
     'inputclass' => 'search-field',
     'placeholder' => 'Search',
-    'searchtitles' => 'false'
+    'searchtitles' => 'false',
+    'noresultsmsg' => 'no results'
   );
 
   // Ensure attributes are not misused
@@ -45,10 +46,11 @@ function list_item_filter_shortcode( $atts ){
   
   wp_enqueue_script( 'list_item_filter_wp_plugin' );
 
-  return sprintf( '<form class="%s list-item-filter" action="%s" method="GET" data-lif-use-titles="%s"><input class="%s" placeholder="%s" autocomplete="off" name="filter" type="search" /></form>',
+  return sprintf( '<form class="%s list-item-filter-plugin" action="%s" method="GET" data-lifp-search-titles="%s" data-lifp-no-results-msg="%s"><label><span>Filter list items below:</span> <input class="%s" placeholder="%s" autocomplete="off" name="filter" type="search" /></label></form><style type="text/css">.lifp-hide{display:none}form.list-item-filter-plugin label span{display:block;width:0;overflow:hidden;white-space:nowrap;text-indent:110em;}</style>',
     $atts['formclass'],
     home_url(add_query_arg(array(),$wp->request)),
     $atts['searchtitles'],
+    $atts['noresultsmsg'],
     $atts['inputclass'],
     $atts['placeholder']
   );
