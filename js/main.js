@@ -1,5 +1,5 @@
 /*
- * List Item Filter WordPress Plugin, v1.2
+ * List Item Filter WordPress Plugin, v1.3
  * By Zach Watkins, http://zachwatkins.info, watkinza@gmail.com
  * License: GPL2+
 */
@@ -79,7 +79,7 @@ function Listitemfilter(form){
 
   this.handler = function(e){
     
-    var value = e.target.value,
+    var value = e.target.value.toLowerCase(),
         toShow = [],
         toHide = [],
         valuesToCheck = [],

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: List Item Filter
  * Description: Filter out list items with a shortcode-generated search field.
- * Version: 1.2
+ * Version: 1.3
  * Author: Zach Watkins
  * Author URI: http://zachwatkins.info
  * Author Email: watkinza@gmail.com
