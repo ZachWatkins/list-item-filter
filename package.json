@@ -1,0 +1,37 @@
+{
+  "name": "list-item-filter",
+  "version": "1.4.0",
+  "description": "WordPress plugin to filter out list items with a shortcode-generated search field.",
+  "main": "list-item-filter.php",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZachWatkins/list-item-filter-box.git"
+  },
+  "keywords": [
+    "wordpress",
+    "plugin",
+    "list",
+    "filter",
+    "search",
+    "shortcode",
+    "javascript"
+  ],
+  "author": "Zachary Watkins",
+  "license": "GPL-2.0+",
+  "bugs": {
+    "url": "https://github.com/ZachWatkins/list-item-filter-box/issues"
+  },
+  "homepage": "https://github.com/ZachWatkins/list-item-filter-box#readme",
+  "dependencies": {
+    "grunt": "~0.4.0"
+  },
+  "devDependencies": {
+    "grunt-contrib-compress": "~1.3.0",
+    "curlrequest": "~0.3.10",
+    "underscore": "~1.8.3",
+    "grunt-gh-release": "0.0.2"
+  }
+}
